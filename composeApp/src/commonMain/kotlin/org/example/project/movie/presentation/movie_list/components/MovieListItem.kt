@@ -14,10 +14,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -40,11 +38,16 @@ import coil3.compose.AsyncImagePainter
 import coil3.compose.rememberAsyncImagePainter
 import com.plcoding.bookpedia.core.presentation.LightBlue
 import com.plcoding.bookpedia.core.presentation.SandYellow
+import io.github.alexzhirkevich.compottie.Compottie
+import io.github.alexzhirkevich.compottie.LottieCompositionSpec
+import io.github.alexzhirkevich.compottie.rememberLottieComposition
+import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import moviekmp.composeapp.generated.resources.Res
 import org.example.project.movie.domain.Movie
-import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 import kotlin.math.round
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun MovieListItem(
     movie: Movie,
@@ -89,6 +92,9 @@ fun MovieListItem(
                     }
                 )
 
+                val composition by rememberLottieComposition {
+                    LottieCompositionSpec.JsonString(Res.readBytes("files/cancel_dialog.json").decodeToString())
+                }
                 val painterState by painter.state.collectAsStateWithLifecycle()
                 val transition by animateFloatAsState(
                     targetValue = if (painterState is AsyncImagePainter.State.Success) {
@@ -104,7 +110,10 @@ fun MovieListItem(
                     else -> {
                         Image(
                             painter = if (result.isSuccess) painter else {
-                                painterResource(Res.drawable.)
+                                rememberLottiePainter(
+                                    composition = composition,
+                                    iterations = Compottie.IterateForever
+                                )
                             },
                             contentDescription = movie.title,
                             contentScale = if (result.isSuccess) {
@@ -129,11 +138,17 @@ fun MovieListItem(
             ) {
                 Text(
                     text = movie.title,
+                    style = MaterialTheme.typography.headlineMedium,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = movie.description,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
-//                movie..firstOrNull()?.let { authorName ->
+//                movie.actors.firstOrNull()?.let { authorName ->
 //                    Text(
 //                        text = authorName,
 //                        style = MaterialTheme.typography.bodyLarge,
@@ -158,11 +173,5 @@ fun MovieListItem(
                     }
                 }
             }
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(36.dp)
-            )
         }
     }

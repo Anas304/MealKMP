@@ -31,7 +31,7 @@ import moviekmp.composeapp.generated.resources.search_hint
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun BookSearchBar(
+fun MovieSearchBar(
     searchQuery: String,
     onSearchQueryChange: (String) -> Unit,
     onImeSearch: () -> Unit,
