@@ -4,5 +4,6 @@ data class Movie(
     val id : Int,
     val title: String,
     val imageUrl: String,
-    val rating: Float,
+    //val actors : List<String>,
+    val rating: Float?,
 )
