@@ -50,7 +50,7 @@ import kotlin.math.round
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun MealListItem(
-    movie: Meal,
+    meal: Meal,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -77,7 +77,7 @@ fun MealListItem(
                     mutableStateOf<Result<Painter>?>(null)
                 }
                 val painter = rememberAsyncImagePainter(
-                    model = movie.imageUrl,
+                    model = meal.imageUrl,
                     onSuccess = {
                         imageLoadResult =
                             if (it.painter.intrinsicSize.width > 1 && it.painter.intrinsicSize.height > 1) {
@@ -115,7 +115,7 @@ fun MealListItem(
                                     iterations = Compottie.IterateForever
                                 )
                             },
-                            contentDescription = movie.title,
+                            contentDescription = meal.title,
                             contentScale = if (result.isSuccess) {
                                 ContentScale.Crop
                             } else {
@@ -137,13 +137,13 @@ fun MealListItem(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = movie.title,
+                    text = meal.title,
                     style = MaterialTheme.typography.headlineMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = movie.description,
+                    text = meal.instructions,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
@@ -156,21 +156,20 @@ fun MealListItem(
 //                        overflow = TextOverflow.Ellipsis
 //                    )
 
-                    movie.rating?.let { rating ->
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "${round(rating * 10) / 10.0}",
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                            Icon(
-                                imageVector = Icons.Default.Star,
-                                contentDescription = null,
-                                tint = SandYellow
-                            )
-                        }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = meal.area,
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = null,
+                            tint = SandYellow
+                        )
                     }
+
                 }
             }
         }

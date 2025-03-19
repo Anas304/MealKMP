@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.update
 
 class MovieListViewModel : ViewModel() {
 
-    private val _uiState: MutableStateFlow<MovieListState> =
-        MutableStateFlow(MovieListState())
+    private val _uiState: MutableStateFlow<MealListState> =
+        MutableStateFlow(MealListState())
     val uiState = _uiState.asStateFlow()
 
     fun onAction(action: MealListAction){

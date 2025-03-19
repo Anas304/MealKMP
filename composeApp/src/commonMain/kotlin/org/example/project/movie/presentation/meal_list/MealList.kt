@@ -16,8 +16,8 @@ import org.example.project.movie.domain.Meal
 import org.example.project.movie.presentation.meal_list.components.MealListItem
 
 @Composable
-fun MovieList(
-    movies: List<Meal>,
+fun MealList(
+    meal: List<Meal>,
     onMovieClick: (Meal) -> Unit,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState()
@@ -29,11 +29,11 @@ fun MovieList(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(
-            items = movies,
+            items = meal,
             key = { it.id }
         ) { movie ->
             MealListItem(
-                movie = movie,
+                meal = movie,
                 onClick = {
                     onMovieClick(movie)
                 },

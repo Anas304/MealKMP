@@ -65,7 +65,7 @@ fun MovieScreenRoot(
 
 @Composable
 fun MovieListScreen(
-    state: MovieListState,
+    state: MealListState,
     onAction: (MealListAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -203,8 +203,8 @@ fun MovieListScreen(
                                         }
 
                                         else -> {
-                                            MovieList(
-                                                movies = state.searchResult,
+                                            MealList(
+                                                meal = state.searchResult,
                                                 onMovieClick = { clickedMovie ->
                                                     onAction(MealListAction.OnMealClick(clickedMovie))
                                                 },
@@ -216,7 +216,7 @@ fun MovieListScreen(
                             }
 
                             1 -> {
-                                if (state.favoriteMovie.isEmpty()){
+                                if (state.favoriteMeal.isEmpty()){
                                     Text(
                                         text = stringResource(Res.string.no_favorite_movies),
                                         textAlign = TextAlign.Center,
@@ -224,8 +224,8 @@ fun MovieListScreen(
                                         color = MaterialTheme.colorScheme.background
                                     )
                                 } else{
-                                    MovieList(
-                                        movies = state.searchResult,
+                                    MealList(
+                                        meal = state.searchResult,
                                         onMovieClick = { clickedMovie ->
                                             onAction(MealListAction.OnMealClick(clickedMovie))
                                         },
