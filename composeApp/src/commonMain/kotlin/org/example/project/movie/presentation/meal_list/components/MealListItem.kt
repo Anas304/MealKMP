@@ -1,4 +1,4 @@
-package org.example.project.movie.presentation.movie_list.components
+package org.example.project.movie.presentation.meal_list.components
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -43,14 +43,14 @@ import io.github.alexzhirkevich.compottie.LottieCompositionSpec
 import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import moviekmp.composeapp.generated.resources.Res
-import org.example.project.movie.domain.Movie
+import org.example.project.movie.domain.Meal
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import kotlin.math.round
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun MovieListItem(
-    movie: Movie,
+fun MealListItem(
+    movie: Meal,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {

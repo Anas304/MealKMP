@@ -1,4 +1,4 @@
-package org.example.project.movie.presentation.movie_list
+package org.example.project.movie.presentation.meal_list
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,13 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.example.project.movie.domain.Movie
-import org.example.project.movie.presentation.movie_list.components.MovieListItem
+import org.example.project.movie.domain.Meal
+import org.example.project.movie.presentation.meal_list.components.MealListItem
 
 @Composable
 fun MovieList(
-    movies: List<Movie>,
-    onMovieClick: (Movie) -> Unit,
+    movies: List<Meal>,
+    onMovieClick: (Meal) -> Unit,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState()
 ) {
@@ -32,7 +32,7 @@ fun MovieList(
             items = movies,
             key = { it.id }
         ) { movie ->
-            MovieListItem(
+            MealListItem(
                 movie = movie,
                 onClick = {
                     onMovieClick(movie)

@@ -1,19 +1,19 @@
-package org.example.project.movie.presentation.movie_list
+package org.example.project.movie.presentation.meal_list
 
 import org.example.core.presentation.UiText
-import org.example.project.movie.domain.Movie
+import org.example.project.movie.domain.Meal
 
 data class MovieListState(
     val searchQuery: String = "Avatar",
-    val searchResult: List<Movie> = movies,
-    val favoriteMovie: List<Movie> = emptyList(),
+    val searchResult: List<Meal> = movies,
+    val favoriteMovie: List<Meal> = emptyList(),
     val selectedTabIndex: Int = 0,
     val isLoading: Boolean = false,
     val errorMessage: UiText? = null
 )
 
 val movies = (1..20).map {
-    Movie(
+    Meal(
         id = it,
         imageUrl = "https//:unknown.com",
         title = "Movie $it",

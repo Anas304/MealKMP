@@ -1,4 +1,4 @@
-package org.example.project.movie.presentation.movie_list
+package org.example.project.movie.presentation.meal_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -37,15 +37,15 @@ import moviekmp.composeapp.generated.resources.Res
 import moviekmp.composeapp.generated.resources.favorites
 import moviekmp.composeapp.generated.resources.no_favorite_movies
 import moviekmp.composeapp.generated.resources.search_results
-import org.example.project.movie.domain.Movie
-import org.example.project.movie.presentation.movie_list.components.MovieSearchBar
+import org.example.project.movie.domain.Meal
+import org.example.project.movie.presentation.meal_list.components.MovieSearchBar
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MovieScreenRoot(
     viewModel: MovieListViewModel = koinViewModel(),
-    onMovieClick: (Movie) -> Unit
+    onMovieClick: (Meal) -> Unit
 ) {
     val state = viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -53,7 +53,7 @@ fun MovieScreenRoot(
         state = state.value,
         onAction = { action ->
             when (action){
-                is MovieListAction.OnMovieClick -> {
+                is MealListAction.OnMealClick -> {
                     onMovieClick(action.movie)
                 }
                 else -> Unit
@@ -66,7 +66,7 @@ fun MovieScreenRoot(
 @Composable
 fun MovieListScreen(
     state: MovieListState,
-    onAction: (MovieListAction) -> Unit,
+    onAction: (MealListAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -85,7 +85,7 @@ fun MovieListScreen(
         pagerState.animateScrollToPage(pagerState.currentPage)
     }
     LaunchedEffect(pagerState.currentPage){
-        onAction(MovieListAction.OnTabSelected(pagerState.currentPage))
+        onAction(MealListAction.OnTabSelected(pagerState.currentPage))
     }
 
     Column(
@@ -97,7 +97,7 @@ fun MovieListScreen(
         MovieSearchBar(
             searchQuery = state.searchQuery,
             onSearchQueryChange = { searcQuery ->
-                onAction(MovieListAction.OnSearchQuery(searcQuery))
+                onAction(MealListAction.OnSearchQuery(searcQuery))
             },
             onImeSearch = {
                 keyboardController?.hide()
@@ -140,7 +140,7 @@ fun MovieListScreen(
                     Tab(
                         selected = state.selectedTabIndex == 0,
                         onClick = {
-                            onAction(MovieListAction.OnTabSelected(0))
+                            onAction(MealListAction.OnTabSelected(0))
                         },
                         selectedContentColor = SandYellow,
                         unselectedContentColor = Color.Black.copy(alpha = 0.5f)
@@ -154,7 +154,7 @@ fun MovieListScreen(
                     Tab(
                         selected = state.selectedTabIndex == 1,
                         onClick = {
-                            onAction(MovieListAction.OnTabSelected(1))
+                            onAction(MealListAction.OnTabSelected(1))
                         },
                         selectedContentColor = SandYellow,
                         unselectedContentColor = Color.Black.copy(alpha = 0.5f)
@@ -206,7 +206,7 @@ fun MovieListScreen(
                                             MovieList(
                                                 movies = state.searchResult,
                                                 onMovieClick = { clickedMovie ->
-                                                    onAction(MovieListAction.OnMovieClick(clickedMovie))
+                                                    onAction(MealListAction.OnMealClick(clickedMovie))
                                                 },
                                                 scrollState = searchResultListState
                                             )
@@ -227,7 +227,7 @@ fun MovieListScreen(
                                     MovieList(
                                         movies = state.searchResult,
                                         onMovieClick = { clickedMovie ->
-                                            onAction(MovieListAction.OnMovieClick(clickedMovie))
+                                            onAction(MealListAction.OnMealClick(clickedMovie))
                                         },
                                         scrollState = searchResultListState
                                     )
