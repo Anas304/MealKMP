@@ -1,4 +1,4 @@
-package org.example.project.movie.presentation.meal_list.components
+package org.example.project.meal.presentation.meal_list.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background

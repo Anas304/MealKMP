@@ -1,4 +1,4 @@
-package org.example.project.movie.domain
+package org.example.project.meal.domain
 
 data class Meal(
     val id : Int,

@@ -1,8 +1,8 @@
-package org.example.project.movie.data.network
+package org.example.project.meal.data.network
 
 import org.example.core.domain.DataError
 import org.example.core.domain.Result
-import org.example.project.movie.data.dto.MealResponseDto
+import org.example.project.meal.data.dto.MealResponseDto
 
 interface RemoteMealDataSource {
 

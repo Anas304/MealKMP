@@ -1,4 +1,4 @@
-package org.example.project.movie.presentation.meal_list.components
+package org.example.project.meal.presentation.meal_list.components
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -43,9 +43,8 @@ import io.github.alexzhirkevich.compottie.LottieCompositionSpec
 import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import moviekmp.composeapp.generated.resources.Res
-import org.example.project.movie.domain.Meal
+import org.example.project.meal.domain.Meal
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import kotlin.math.round
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -143,7 +142,7 @@ fun MealListItem(
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = meal.instructions,
+                    text = meal.category,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis

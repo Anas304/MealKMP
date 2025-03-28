@@ -1,4 +1,4 @@
-package org.example.project.movie.presentation.meal_list
+package org.example.project.meal.presentation.meal_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -37,24 +37,24 @@ import moviekmp.composeapp.generated.resources.Res
 import moviekmp.composeapp.generated.resources.favorites
 import moviekmp.composeapp.generated.resources.no_favorite_movies
 import moviekmp.composeapp.generated.resources.search_results
-import org.example.project.movie.domain.Meal
-import org.example.project.movie.presentation.meal_list.components.MovieSearchBar
+import org.example.project.meal.domain.Meal
+import org.example.project.meal.presentation.meal_list.components.MovieSearchBar
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun MovieScreenRoot(
-    viewModel: MovieListViewModel = koinViewModel(),
-    onMovieClick: (Meal) -> Unit
+fun MealScreenRoot(
+    viewModel: MealListViewModel = koinViewModel(),
+    onMealClick: (Meal) -> Unit
 ) {
     val state = viewModel.uiState.collectAsStateWithLifecycle()
 
-    MovieListScreen(
+    MealListScreen(
         state = state.value,
         onAction = { action ->
             when (action){
                 is MealListAction.OnMealClick -> {
-                    onMovieClick(action.movie)
+                    onMealClick(action.meal)
                 }
                 else -> Unit
             }
@@ -64,7 +64,7 @@ fun MovieScreenRoot(
 }
 
 @Composable
-fun MovieListScreen(
+fun MealListScreen(
     state: MealListState,
     onAction: (MealListAction) -> Unit,
     modifier: Modifier = Modifier,
@@ -73,7 +73,7 @@ fun MovieListScreen(
     val pagerState = rememberPagerState { 2 }
 
     val searchResultListState = rememberLazyListState()
-    val favoriteMovieListState = rememberLazyListState()
+    val favoriteMealListState = rememberLazyListState()
 
     LaunchedEffect(state.searchResult){
         searchResultListState.animateScrollToItem(0)
@@ -87,6 +87,7 @@ fun MovieListScreen(
     LaunchedEffect(pagerState.currentPage){
         onAction(MealListAction.OnTabSelected(pagerState.currentPage))
     }
+    print("Meals data ${state.searchResult}")
 
     Column(
         modifier = modifier

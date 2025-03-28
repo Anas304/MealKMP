@@ -1,11 +1,11 @@
-package org.example.project.movie.presentation.meal_list
+package org.example.project.meal.presentation.meal_list
 
 import org.example.core.presentation.UiText
-import org.example.project.movie.domain.Meal
+import org.example.project.meal.domain.Meal
 
 data class MealListState(
     val searchQuery: String = "Biryani",
-    val searchResult: List<Meal> = meals,
+    val searchResult: List<Meal> = emptyList(),
     val favoriteMeal: List<Meal> = emptyList(),
     val selectedTabIndex: Int = 0,
     val isLoading: Boolean = false,
