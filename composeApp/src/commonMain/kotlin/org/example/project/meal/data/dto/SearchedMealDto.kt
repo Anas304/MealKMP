@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SearchedMealDto(
-    @SerialName("idMeal") val id : Int,
+    @SerialName("idMeal") val id : String,
     @SerialName("strMeal") val mealName : String,
     @SerialName("strCategory") val category : String,
     @SerialName("strArea") val area : String,

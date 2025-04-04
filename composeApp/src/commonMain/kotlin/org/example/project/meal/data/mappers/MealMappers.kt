@@ -5,7 +5,7 @@ import org.example.project.meal.domain.Meal
 
 fun SearchedMealDto.toMeal() : Meal {
     return Meal(
-        id = id,
+        id = id.substringAfterLast("/"),
         title = mealName,
         category = category,
         area = area,

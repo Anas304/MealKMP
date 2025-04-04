@@ -8,7 +8,7 @@ import org.example.core.domain.DataError
 import org.example.core.domain.Result
 import org.example.project.meal.data.dto.MealResponseDto
 
-private const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
+private const val BASE_URL = "https://www.themealdb.com/api/json/v1/1"
 
 class KtorRemoteMealDataSource (
     val httpClient: HttpClient

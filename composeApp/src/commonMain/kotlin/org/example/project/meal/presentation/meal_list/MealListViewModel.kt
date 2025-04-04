@@ -67,7 +67,7 @@ class MealListViewModel(
             .debounce(500L)
             .onEach { query ->
                 when {
-                    query.isBlank() -> _uiState.update {
+                    query.isNullOrBlank() -> _uiState.update {
                         it.copy(
                             isLoading = false,
                             searchResult = cachedMeals

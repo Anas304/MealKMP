@@ -194,7 +194,16 @@ fun MealListScreen(
                                             )
                                         }
 
-                                        state.searchResult.isEmpty() -> {
+                                        state.searchResult.isNullOrEmpty() -> {
+                                            Text(
+                                                text = stringResource(Res.string.search_results),
+                                                textAlign = TextAlign.Center,
+                                                style = MaterialTheme.typography.headlineSmall,
+                                                color = MaterialTheme.colorScheme.background
+                                            )
+                                        }
+
+                                        state.searchQuery.isNullOrEmpty() -> {
                                             Text(
                                                 text = stringResource(Res.string.search_results),
                                                 textAlign = TextAlign.Center,
@@ -225,13 +234,15 @@ fun MealListScreen(
                                         color = MaterialTheme.colorScheme.background
                                     )
                                 } else{
-                                    MealList(
-                                        meal = state.searchResult,
-                                        onMovieClick = { clickedMovie ->
-                                            onAction(MealListAction.OnMealClick(clickedMovie))
-                                        },
-                                        scrollState = searchResultListState
-                                    )
+                                    state.searchResult?.let { result->
+                                        MealList(
+                                            meal = result,
+                                            onMovieClick = { clickedMovie ->
+                                                onAction(MealListAction.OnMealClick(clickedMovie))
+                                            },
+                                            scrollState = searchResultListState
+                                        )
+                                    }
                                 }
                             }
                         }
