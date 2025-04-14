@@ -35,7 +35,7 @@ import com.plcoding.bookpedia.core.presentation.DesertWhite
 import com.plcoding.bookpedia.core.presentation.SandYellow
 import moviekmp.composeapp.generated.resources.Res
 import moviekmp.composeapp.generated.resources.favorites
-import moviekmp.composeapp.generated.resources.no_favorite_movies
+import moviekmp.composeapp.generated.resources.no_favorite_meals
 import moviekmp.composeapp.generated.resources.search_results
 import org.example.project.meal.domain.Meal
 import org.example.project.meal.presentation.meal_list.components.MovieSearchBar
@@ -228,7 +228,7 @@ fun MealListScreen(
                             1 -> {
                                 if (state.favoriteMeal.isEmpty()){
                                     Text(
-                                        text = stringResource(Res.string.no_favorite_movies),
+                                        text = stringResource(Res.string.no_favorite_meals),
                                         textAlign = TextAlign.Center,
                                         style = MaterialTheme.typography.headlineSmall,
                                         color = MaterialTheme.colorScheme.background

@@ -4,9 +4,9 @@
     <string name="close_hint">Clear search</string>
     <string name="search_results">Search Results</string>
     <string name="favorites">Favorites</string>
-    <string name="no_search_results">Oops, there aren't any movies for your search query.</string>
-    <string name="no_favorite_movies">No favorite movies yet.</string>
-    <string name="movie_cover">movie cover</string>
+    <string name="no_search_results">Oops, there aren't any meals for your search query.</string>
+    <string name="no_favorite_meals">No favorite meals yet.</string>
+    <string name="meal_cover">Meal cover</string>
     <string name="rating">Rating</string>
     <string name="pages">Pages</string>
     <string name="languages">Languages</string>

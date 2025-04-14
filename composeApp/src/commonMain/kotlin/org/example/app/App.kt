@@ -5,12 +5,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModel
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import org.example.project.meal.presentation.SelectedMealViewModel
 import org.example.project.meal.presentation.meal_list.MealListViewModel
 import org.example.project.meal.presentation.meal_list.MealScreenRoot
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -30,9 +35,11 @@ fun App() {
             composable<Route.MealList> {
                 MaterialTheme {
                     val viewModel = koinViewModel<MealListViewModel>()
+                    val selectedMealViewModel = it.sharedKoinViewModel<SelectedMealViewModel>(navController)
                     MealScreenRoot(
                         viewModel = viewModel,
                         onMealClick = { meal ->
+                            selectedMealViewModel.onMealSelected(meal)
                             navController.navigate(Route.MealDetail(meal.id))
                         }
                     )
@@ -44,13 +51,21 @@ fun App() {
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Meal Detail screen's ID is ${meal.id}")
+                    Text(text = "Meal Detail screen's ID is\n${meal.id}")
                 }
             }
-
-
         }
     }
-
-
+}
+@Composable
+private inline fun <reified T : ViewModel> NavBackStackEntry.sharedKoinViewModel(
+    navController: NavController
+): T {
+    val navGraph = destination.parent?.route ?: return koinViewModel<T>()
+    val parentEntry = remember(this) {
+        navController.getBackStackEntry(navGraph)
+    }
+    return koinViewModel(
+        viewModelStoreOwner = parentEntry
+    )
 }
