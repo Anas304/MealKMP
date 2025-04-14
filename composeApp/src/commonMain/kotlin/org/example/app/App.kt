@@ -27,35 +27,39 @@ import org.koin.compose.viewmodel.koinViewModel
 @Preview
 fun App() {
     val navController = rememberNavController()
-    NavHost(
-        navController = navController,
-        startDestination = Route.MealGraph
-    ) {
-        navigation<Route.MealGraph>(
-            startDestination = Route.MealList
+    MaterialTheme {
+        NavHost(
+            navController = navController,
+            startDestination = Route.MealGraph
         ) {
-            composable<Route.MealList> {
-                MaterialTheme {
-                    val viewModel = koinViewModel<MealListViewModel>()
-                    val selectedMealViewModel = it.sharedKoinViewModel<SelectedMealViewModel>(navController)
-                    MealScreenRoot(
-                        viewModel = viewModel,
-                        onMealClick = { meal ->
-                            selectedMealViewModel.onMealSelected(meal)
-                            navController.navigate(Route.MealDetail(meal.id))
-                        }
-                    )
+            navigation<Route.MealGraph>(
+                startDestination = Route.MealList
+            ) {
+                composable<Route.MealList> {
+                    MaterialTheme {
+                        val viewModel = koinViewModel<MealListViewModel>()
+                        val selectedMealViewModel =
+                            it.sharedKoinViewModel<SelectedMealViewModel>(navController)
+                        MealScreenRoot(
+                            viewModel = viewModel,
+                            onMealClick = { meal ->
+                                selectedMealViewModel.onMealSelected(meal)
+                                navController.navigate(Route.MealDetail(meal.id))
+                            }
+                        )
+                    }
                 }
-            }
 
-            composable<Route.MealDetail> {
-                val selectedMealViewModel = it.sharedKoinViewModel<SelectedMealViewModel>(navController)
-                val selectedMeal by selectedMealViewModel.selectedMeal.collectAsStateWithLifecycle()
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(text = "Meal Detail screen's ID is\n$selectedMeal")
+                composable<Route.MealDetail> {
+                    val selectedMealViewModel =
+                        it.sharedKoinViewModel<SelectedMealViewModel>(navController)
+                    val selectedMeal by selectedMealViewModel.selectedMeal.collectAsStateWithLifecycle()
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(text = "Meal Detail screen's ID is\n$selectedMeal")
+                    }
                 }
             }
         }
