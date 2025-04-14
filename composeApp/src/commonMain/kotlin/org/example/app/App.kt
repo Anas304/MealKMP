@@ -5,10 +5,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -46,12 +48,14 @@ fun App() {
                 }
             }
 
-            composable<Route.MealDetail> { meal ->
+            composable<Route.MealDetail> {
+                val selectedMealViewModel = it.sharedKoinViewModel<SelectedMealViewModel>(navController)
+                val selectedMeal by selectedMealViewModel.selectedMeal.collectAsStateWithLifecycle()
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Meal Detail screen's ID is\n${meal.id}")
+                    Text(text = "Meal Detail screen's ID is\n$selectedMeal")
                 }
             }
         }
