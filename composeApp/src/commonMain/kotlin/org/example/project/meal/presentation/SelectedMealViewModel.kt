@@ -10,7 +10,7 @@ class SelectedMealViewModel : ViewModel() {
     private val _selectedMeal = MutableStateFlow<Meal?>(null)
     val selectedMeal = _selectedMeal.asStateFlow()
 
-    fun onMealSelected(meal: Meal) {
+    fun onMealSelected(meal: Meal?) {
         _selectedMeal.value = meal
     }
 }

@@ -6,6 +6,7 @@ import org.example.project.meal.data.network.RemoteMealDataSource
 import org.example.project.meal.data.repository.DefaultMealRepository
 import org.example.project.meal.domain.MealRepository
 import org.example.project.meal.presentation.SelectedMealViewModel
+import org.example.project.meal.presentation.meal_detail.MealDetailsViewModel
 import org.example.project.meal.presentation.meal_list.MealListViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -23,4 +24,5 @@ val sharedModule = module {
 
     viewModelOf(::MealListViewModel)//will not put bind here as this does not implement abstraction
     viewModelOf(::SelectedMealViewModel)
+    viewModelOf(::MealDetailsViewModel)
 }

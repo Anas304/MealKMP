@@ -1,14 +1,10 @@
 package org.example.app
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
@@ -18,6 +14,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import org.example.project.meal.presentation.SelectedMealViewModel
+import org.example.project.meal.presentation.meal_detail.MealDetailScreenRoot
+import org.example.project.meal.presentation.meal_detail.MealDetailsAction
+import org.example.project.meal.presentation.meal_detail.MealDetailsViewModel
 import org.example.project.meal.presentation.meal_list.MealListViewModel
 import org.example.project.meal.presentation.meal_list.MealScreenRoot
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -40,6 +39,11 @@ fun App() {
                         val viewModel = koinViewModel<MealListViewModel>()
                         val selectedMealViewModel =
                             it.sharedKoinViewModel<SelectedMealViewModel>(navController)
+
+                        LaunchedEffect(true){
+                            selectedMealViewModel.onMealSelected(null)
+                        }
+
                         MealScreenRoot(
                             viewModel = viewModel,
                             onMealClick = { meal ->
@@ -53,13 +57,21 @@ fun App() {
                 composable<Route.MealDetail> {
                     val selectedMealViewModel =
                         it.sharedKoinViewModel<SelectedMealViewModel>(navController)
+                    val viewModel = koinViewModel<MealDetailsViewModel>()
                     val selectedMeal by selectedMealViewModel.selectedMeal.collectAsStateWithLifecycle()
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(text = "Meal Detail screen's ID is\n$selectedMeal")
+
+                    LaunchedEffect(selectedMeal){
+                        selectedMeal?.let {
+                            viewModel.onAction(MealDetailsAction.OnSelectedMealChange(it))
+                        }
                     }
+
+                    MealDetailScreenRoot(
+                        viewModel = viewModel,
+                        onBackClick = {
+                            navController.popBackStack()
+                        }
+                    )
                 }
             }
         }
