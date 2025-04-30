@@ -24,6 +24,7 @@ ksp = "2.1.20-RC2-1.0.31"
 sqlite = "2.5.0-alpha11"
 room = "2.7.0-alpha11"
 compottie = "2.0.0-beta02"
+flexible-bottom-sheet = "0.1.5"
 
 
 [libraries]
@@ -43,7 +44,7 @@ kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-co
 
 jetbrains-compose-navigation = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref= "navigationCompose"}
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization" }
-
+flexible-bottomsheet = {module = "com.github.skydoves:flexible-bottomsheet-material3",version.ref = "flexible-bottom-sheet"}
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }

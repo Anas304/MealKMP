@@ -5,8 +5,6 @@ data class Meal(
     val title: String,
     val category: String,
     val area: String,
-    val instructions: String,
+    val instructions: String?,
     val imageUrl: String,
-   // val tags: String?,
-    //val ingredients: List<String>?,
 )

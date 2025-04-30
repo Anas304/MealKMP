@@ -35,10 +35,10 @@ import com.plcoding.bookpedia.core.presentation.DesertWhite
 import com.plcoding.bookpedia.core.presentation.SandYellow
 import moviekmp.composeapp.generated.resources.Res
 import moviekmp.composeapp.generated.resources.favorites
-import moviekmp.composeapp.generated.resources.no_favorite_meals
 import moviekmp.composeapp.generated.resources.search_results
 import org.example.project.meal.domain.Meal
 import org.example.project.meal.presentation.meal_list.components.MovieSearchBar
+import org.example.project.meal.presentation.meal_list.components.NoDataFound
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -52,10 +52,11 @@ fun MealScreenRoot(
     MealListScreen(
         state = state.value,
         onAction = { action ->
-            when (action){
+            when (action) {
                 is MealListAction.OnMealClick -> {
                     onMealClick(action.meal)
                 }
+
                 else -> Unit
             }
             viewModel.onAction(action)
@@ -75,20 +76,21 @@ fun MealListScreen(
     val searchResultListState = rememberLazyListState()
     val favoriteMealListState = rememberLazyListState()
 
-    LaunchedEffect(state.searchResult){
+    LaunchedEffect(state.searchResult) {
         searchResultListState.animateScrollToItem(0)
     }
-    LaunchedEffect(state.selectedTabIndex){
+    LaunchedEffect(state.selectedTabIndex) {
         pagerState.animateScrollToPage(state.selectedTabIndex)
     }
-    LaunchedEffect(pagerState.currentPage){
+    LaunchedEffect(pagerState.currentPage) {
         pagerState.animateScrollToPage(pagerState.currentPage)
     }
-    LaunchedEffect(pagerState.currentPage){
+    LaunchedEffect(pagerState.currentPage) {
         onAction(MealListAction.OnTabSelected(pagerState.currentPage))
     }
-    print("Meals data ${state.searchResult}")
-
+    LaunchedEffect(Unit) {
+        println("Search result: ${state.searchResult}")
+    }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -122,7 +124,7 @@ fun MealListScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
+            ) {
                 TabRow(
                     selectedTabIndex = state.selectedTabIndex,
                     modifier = Modifier
@@ -130,14 +132,14 @@ fun MealListScreen(
                         .widthIn(max = 700.dp)
                         .fillMaxWidth(),
                     containerColor = DesertWhite,
-                    indicator = { tabPositions->
+                    indicator = { tabPositions ->
                         TabRowDefaults.SecondaryIndicator(
                             color = SandYellow,
                             modifier = Modifier
                                 .tabIndicatorOffset(tabPositions[state.selectedTabIndex])
                         )
                     }
-                ){
+                ) {
                     Tab(
                         selected = state.selectedTabIndex == 0,
                         onClick = {
@@ -177,14 +179,14 @@ fun MealListScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.TopCenter
                     ) {
-                        when(pageIndex){
+                        when (pageIndex) {
                             0 -> {
-                                if (state.isLoading){
+                                if (state.isLoading) {
                                     CircularProgressIndicator()
                                 } else {
-                                    when{
+                                    when {
                                         state.errorMessage != null -> {
                                             Text(
                                                 text = state.errorMessage.asString(),
@@ -195,21 +197,17 @@ fun MealListScreen(
                                         }
 
                                         state.searchResult.isNullOrEmpty() -> {
-                                            Text(
-                                                text = stringResource(Res.string.search_results),
-                                                textAlign = TextAlign.Center,
-                                                style = MaterialTheme.typography.headlineSmall,
-                                                color = MaterialTheme.colorScheme.background
-                                            )
+                                           //Do nothing
                                         }
 
                                         state.searchQuery.isNullOrEmpty() -> {
-                                            Text(
-                                                text = stringResource(Res.string.search_results),
-                                                textAlign = TextAlign.Center,
-                                                style = MaterialTheme.typography.headlineSmall,
-                                                color = MaterialTheme.colorScheme.background
-                                            )
+//                                            Text(
+//                                                text = stringResource(Res.string.search_results),
+//                                                textAlign = TextAlign.Center,
+//                                                style = MaterialTheme.typography.headlineSmall,
+//                                                color = MaterialTheme.colorScheme.background
+//                                            )
+                                            NoDataFound()
                                         }
 
                                         else -> {
@@ -226,15 +224,10 @@ fun MealListScreen(
                             }
 
                             1 -> {
-                                if (state.favoriteMeal.isEmpty()){
-                                    Text(
-                                        text = stringResource(Res.string.no_favorite_meals),
-                                        textAlign = TextAlign.Center,
-                                        style = MaterialTheme.typography.headlineSmall,
-                                        color = MaterialTheme.colorScheme.background
-                                    )
-                                } else{
-                                    state.searchResult?.let { result->
+                                if (state.favoriteMeal.isNullOrEmpty()) {
+                                    NoDataFound()
+                                } else {
+                                    state.searchResult?.let { result ->
                                         MealList(
                                             meal = result,
                                             onMovieClick = { clickedMovie ->

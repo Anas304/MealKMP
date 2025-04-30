@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CircularProgressIndicator
@@ -54,7 +53,7 @@ fun MealListItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = RoundedCornerShape(32.dp),
+        shape = MaterialTheme.shapes.large,
         modifier = modifier
             .clickable(onClick = onClick),
         color = LightBlue.copy(alpha = 0.2f)

@@ -25,11 +25,11 @@ class MealListViewModel(
     private val repository: MealRepository
 ) : ViewModel() {
     val cachedMeals = emptyList<Meal>()
-    var searchJob : Job? = null
-    private val _uiState= MutableStateFlow(MealListState())
+    var searchJob: Job? = null
+    private val _uiState = MutableStateFlow(MealListState())
     val uiState = _uiState
         .onStart {
-            if (cachedMeals.isEmpty()){
+            if (cachedMeals.isEmpty()) {
                 observeSearchQuery()
             }
         }
@@ -54,6 +54,12 @@ class MealListViewModel(
             is MealListAction.OnTabSelected -> {
                 _uiState.update {
                     it.copy(selectedTabIndex = action.index)
+                }
+            }
+
+            MealListAction.OnDialogDismiss -> {
+                _uiState.update {
+                    it.copy(isLoading = false)
                 }
             }
         }
@@ -91,7 +97,7 @@ class MealListViewModel(
 
         repository
             .searchMeals(query)
-            .onSuccess {searchResult ->
+            .onSuccess { searchResult ->
                 _uiState.update {
                     it.copy(
                         isLoading = false,
@@ -99,7 +105,7 @@ class MealListViewModel(
                     )
                 }
             }
-            .onError {error ->
+            .onError { error ->
                 _uiState.update {
                     it.copy(
                         isLoading = false,

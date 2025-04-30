@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MealResponseDto(
-    @SerialName("meals") val response: List<SearchedMealDto>
+    @SerialName("meals") val response: List<SearchedMealDto>?
 )

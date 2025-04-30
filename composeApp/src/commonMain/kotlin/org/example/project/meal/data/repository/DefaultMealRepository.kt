@@ -18,9 +18,9 @@ class DefaultMealRepository(
         return remoteMealDataSource
             .searchMeals(query)
             .map { dto->
-                dto.response.map { transform->
+                dto.response?.map { transform->
                     transform.toMeal()
-                }
+                } ?: emptyList()
             }
     }
 }
