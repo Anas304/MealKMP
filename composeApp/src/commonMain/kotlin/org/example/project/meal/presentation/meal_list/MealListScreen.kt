@@ -13,7 +13,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
@@ -39,6 +38,7 @@ import moviekmp.composeapp.generated.resources.search_results
 import org.example.project.meal.domain.Meal
 import org.example.project.meal.presentation.meal_list.components.MovieSearchBar
 import org.example.project.meal.presentation.meal_list.components.NoDataFound
+import org.example.project.meal.presentation.meal_list.components.SearchingRecipe
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -184,7 +184,7 @@ fun MealListScreen(
                         when (pageIndex) {
                             0 -> {
                                 if (state.isLoading) {
-                                    CircularProgressIndicator()
+                                    SearchingRecipe()
                                 } else {
                                     when {
                                         state.errorMessage != null -> {
@@ -197,17 +197,7 @@ fun MealListScreen(
                                         }
 
                                         state.searchResult.isNullOrEmpty() -> {
-                                           //Do nothing
-                                        }
-
-                                        state.searchQuery.isNullOrEmpty() -> {
-//                                            Text(
-//                                                text = stringResource(Res.string.search_results),
-//                                                textAlign = TextAlign.Center,
-//                                                style = MaterialTheme.typography.headlineSmall,
-//                                                color = MaterialTheme.colorScheme.background
-//                                            )
-                                            NoDataFound()
+                                           NoDataFound()
                                         }
 
                                         else -> {

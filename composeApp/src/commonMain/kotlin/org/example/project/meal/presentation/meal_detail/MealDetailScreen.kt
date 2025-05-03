@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import moviekmp.composeapp.generated.resources.Res
 import moviekmp.composeapp.generated.resources.description_unavailable
+import moviekmp.composeapp.generated.resources.text_instruction
 import org.example.project.meal.presentation.meal_detail.components.BlurredImageBackground
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -33,10 +34,11 @@ fun MealDetailScreenRoot(
     MealDetailScreen(
         state = state,
         onAction = { action ->
-            when(action){
+            when (action) {
                 MealDetailsAction.OnBackClick -> {
                     onBackClick()
                 }
+
                 else -> Unit
             }
             viewModel.onAction(action)
@@ -60,41 +62,40 @@ fun MealDetailScreen(
         },
         modifier = Modifier
             .fillMaxSize()
-    ){
-        if (state.meal != null) {
-            Column(
-                modifier = Modifier
-                    .widthIn(max = 700.dp)
-                    .fillMaxWidth()
-                    .padding(
-                        vertical = 16.dp,
-                        horizontal = 24.dp
-                    )
-                    .verticalScroll(rememberScrollState()),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = state.meal.title,
-                    style = MaterialTheme.typography.headlineSmall,
-                    textAlign = TextAlign.Center
-                )
-                Text(
-                    text = state.meal.category,
-                    style = MaterialTheme.typography.titleMedium,
-                    textAlign = TextAlign.Center
-                )
-                Text(
-                    text = state.meal.area,
-                    style = MaterialTheme.typography.titleMedium,
-                    textAlign = TextAlign.Center
-                )
-
-                if (state.isLoading) {
-                    CircularProgressIndicator()
-
-                } else {
+    ) {
+        if (state.isLoading) {
+            CircularProgressIndicator()
+        } else {
+            if (state.meal != null) {
+                Column(
+                    modifier = Modifier
+                        .widthIn(max = 700.dp)
+                        .fillMaxWidth()
+                        .padding(
+                            vertical = 16.dp,
+                            horizontal = 24.dp
+                        )
+                        .verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Text(
-                        text = "Instructions",
+                        text = state.meal.title,
+                        style = MaterialTheme.typography.headlineSmall,
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = state.meal.category,
+                        style = MaterialTheme.typography.titleMedium,
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = state.meal.area,
+                        style = MaterialTheme.typography.titleMedium,
+                        textAlign = TextAlign.Center
+                    )
+
+                    Text(
+                        text = stringResource(Res.string.text_instruction),
                         style = MaterialTheme.typography.titleLarge,
                         modifier = Modifier
                             .align(Alignment.Start)
@@ -116,9 +117,10 @@ fun MealDetailScreen(
                         modifier = Modifier
                             .padding(vertical = 8.dp)
                     )
+
                 }
             }
+
         }
-        
     }
 }
