@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
@@ -35,13 +36,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImagePainter
 import coil3.compose.rememberAsyncImagePainter
-import com.plcoding.bookpedia.core.presentation.LightBlue
-import com.plcoding.bookpedia.core.presentation.SandYellow
 import io.github.alexzhirkevich.compottie.Compottie
 import io.github.alexzhirkevich.compottie.LottieCompositionSpec
 import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import moviekmp.composeapp.generated.resources.Res
+import org.example.core.presentation.DesertGreen
+import org.example.core.presentation.DesertWhite
+import org.example.core.presentation.SandYellow
 import org.example.project.meal.domain.Meal
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
@@ -53,10 +55,10 @@ fun MealListItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = MaterialTheme.shapes.large,
         modifier = modifier
             .clickable(onClick = onClick),
-        color = LightBlue.copy(alpha = 0.2f)
+        shape = MaterialTheme.shapes.large,
+        color = DesertGreen
     ) {
         Row(
             modifier = Modifier
@@ -120,6 +122,7 @@ fun MealListItem(
                                 ContentScale.Fit
                             },
                             modifier = Modifier
+                                .clip(MaterialTheme.shapes.medium)
                                 .aspectRatio(
                                     ratio = 0.65f,
                                     matchHeightConstraintsFirst = true

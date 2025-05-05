@@ -5,7 +5,7 @@ import org.example.project.meal.domain.Meal
 
 data class MealListState(
     val searchQuery: String? = "Biryani",
-    val searchResult: List<Meal>? = emptyList(),
+    val searchResult: List<Meal> = emptyList(),
     val favoriteMeal: List<Meal>? = emptyList(),
     val selectedTabIndex: Int = 0,
     val isLoading: Boolean = false,

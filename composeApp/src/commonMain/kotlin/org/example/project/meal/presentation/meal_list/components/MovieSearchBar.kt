@@ -22,9 +22,9 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import com.plcoding.bookpedia.core.presentation.DarkBlue
-import com.plcoding.bookpedia.core.presentation.DesertWhite
-import com.plcoding.bookpedia.core.presentation.SandYellow
+import org.example.core.presentation.DarkBlue
+import org.example.core.presentation.DesertWhite
+import org.example.core.presentation.SandYellow
 import moviekmp.composeapp.generated.resources.Res
 import moviekmp.composeapp.generated.resources.close_hint
 import moviekmp.composeapp.generated.resources.search_hint

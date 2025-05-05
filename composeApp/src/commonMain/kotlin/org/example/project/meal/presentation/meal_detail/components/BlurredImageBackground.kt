@@ -36,9 +36,9 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
-import com.plcoding.bookpedia.core.presentation.DarkBlue
-import com.plcoding.bookpedia.core.presentation.DesertWhite
-import com.plcoding.bookpedia.core.presentation.SandYellow
+import org.example.core.presentation.DarkBlue
+import org.example.core.presentation.DesertWhite
+import org.example.core.presentation.SandYellow
 import moviekmp.composeapp.generated.resources.Res
 import moviekmp.composeapp.generated.resources.book_error_2
 import moviekmp.composeapp.generated.resources.go_back

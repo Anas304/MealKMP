@@ -24,8 +24,8 @@ import org.example.project.meal.domain.MealRepository
 class MealListViewModel(
     private val repository: MealRepository
 ) : ViewModel() {
-    val cachedMeals = emptyList<Meal>()
     var searchJob: Job? = null
+    val  cachedMeals = emptyList<Meal>()
     private val _uiState = MutableStateFlow(MealListState())
     val uiState = _uiState
         .onStart {

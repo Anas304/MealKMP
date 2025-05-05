@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
@@ -29,16 +30,16 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.plcoding.bookpedia.core.presentation.DarkBlue
-import com.plcoding.bookpedia.core.presentation.DesertWhite
-import com.plcoding.bookpedia.core.presentation.SandYellow
 import moviekmp.composeapp.generated.resources.Res
 import moviekmp.composeapp.generated.resources.favorites
 import moviekmp.composeapp.generated.resources.search_results
+import org.example.core.presentation.DarkBlue
+import org.example.core.presentation.DesertWhite
+import org.example.core.presentation.DimGreen
+import org.example.core.presentation.SandYellow
 import org.example.project.meal.domain.Meal
 import org.example.project.meal.presentation.meal_list.components.MovieSearchBar
 import org.example.project.meal.presentation.meal_list.components.NoDataFound
-import org.example.project.meal.presentation.meal_list.components.SearchingRecipe
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -48,7 +49,6 @@ fun MealScreenRoot(
     onMealClick: (Meal) -> Unit
 ) {
     val state = viewModel.uiState.collectAsStateWithLifecycle()
-
     MealListScreen(
         state = state.value,
         onAction = { action ->
@@ -88,9 +88,6 @@ fun MealListScreen(
     LaunchedEffect(pagerState.currentPage) {
         onAction(MealListAction.OnTabSelected(pagerState.currentPage))
     }
-    LaunchedEffect(Unit) {
-        println("Search result: ${state.searchResult}")
-    }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -99,8 +96,8 @@ fun MealListScreen(
     ) {
         MovieSearchBar(
             searchQuery = state.searchQuery,
-            onSearchQueryChange = { searcQuery ->
-                onAction(MealListAction.OnSearchQuery(searcQuery))
+            onSearchQueryChange = { searchQuery ->
+                onAction(MealListAction.OnSearchQuery(searchQuery))
             },
             onImeSearch = {
                 keyboardController?.hide()
@@ -134,7 +131,7 @@ fun MealListScreen(
                     containerColor = DesertWhite,
                     indicator = { tabPositions ->
                         TabRowDefaults.SecondaryIndicator(
-                            color = SandYellow,
+                            color = DimGreen,
                             modifier = Modifier
                                 .tabIndicatorOffset(tabPositions[state.selectedTabIndex])
                         )
@@ -184,7 +181,7 @@ fun MealListScreen(
                         when (pageIndex) {
                             0 -> {
                                 if (state.isLoading) {
-                                    SearchingRecipe()
+                                    CircularProgressIndicator()
                                 } else {
                                     when {
                                         state.errorMessage != null -> {
@@ -196,8 +193,13 @@ fun MealListScreen(
                                             )
                                         }
 
-                                        state.searchResult.isNullOrEmpty() -> {
-                                           NoDataFound()
+                                        state.searchResult.isEmpty()-> {
+                                            Text(
+                                                text = "Let's look for something new \uD83D\uDC69\u200D\uD83C\uDF73",
+                                                style = MaterialTheme.typography.headlineMedium,
+                                                color = MaterialTheme.colorScheme.error,
+                                                textAlign = TextAlign.Center
+                                            )
                                         }
 
                                         else -> {
@@ -215,17 +217,15 @@ fun MealListScreen(
 
                             1 -> {
                                 if (state.favoriteMeal.isNullOrEmpty()) {
-                                    NoDataFound()
+                                    NoDataFound(text = "No recipe added as favourite")
                                 } else {
-                                    state.searchResult?.let { result ->
-                                        MealList(
-                                            meal = result,
-                                            onMovieClick = { clickedMovie ->
-                                                onAction(MealListAction.OnMealClick(clickedMovie))
-                                            },
-                                            scrollState = searchResultListState
-                                        )
-                                    }
+                                    MealList(
+                                        meal = state.favoriteMeal,
+                                        onMovieClick = { clickedMovie ->
+                                            onAction(MealListAction.OnMealClick(clickedMovie))
+                                        },
+                                        scrollState = searchResultListState
+                                    )
                                 }
                             }
                         }

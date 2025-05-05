@@ -1,5 +1,6 @@
 package org.example.project.meal.presentation.meal_detail
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -63,64 +64,60 @@ fun MealDetailScreen(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        if (state.isLoading) {
-            CircularProgressIndicator()
-        } else {
-            if (state.meal != null) {
-                Column(
+        if (state.meal != null) {
+            Column(
+                modifier = Modifier
+                    .widthIn(max = 700.dp)
+                    .fillMaxWidth()
+                    .padding(
+                        vertical = 16.dp,
+                        horizontal = 24.dp
+                    )
+                    .verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = state.meal.title,
+                    style = MaterialTheme.typography.headlineSmall,
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = state.meal.category,
+                    style = MaterialTheme.typography.titleMedium,
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = state.meal.area,
+                    style = MaterialTheme.typography.titleMedium,
+                    textAlign = TextAlign.Center
+                )
+
+                Text(
+                    text = stringResource(Res.string.text_instruction),
+                    style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier
-                        .widthIn(max = 700.dp)
+                        .align(Alignment.Start)
                         .fillMaxWidth()
-                        .padding(
-                            vertical = 16.dp,
-                            horizontal = 24.dp
-                        )
-                        .verticalScroll(rememberScrollState()),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = state.meal.title,
-                        style = MaterialTheme.typography.headlineSmall,
-                        textAlign = TextAlign.Center
-                    )
-                    Text(
-                        text = state.meal.category,
-                        style = MaterialTheme.typography.titleMedium,
-                        textAlign = TextAlign.Center
-                    )
-                    Text(
-                        text = state.meal.area,
-                        style = MaterialTheme.typography.titleMedium,
-                        textAlign = TextAlign.Center
-                    )
+                        .padding(top = 24.dp, bottom = 8.dp)
+                )
+                Text(
+                    text = if (state.meal.instructions.isNullOrBlank()) {
+                        stringResource(Res.string.description_unavailable)
+                    } else {
+                        state.meal.instructions
+                    },
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = if (state.meal.instructions.isNullOrBlank()) {
+                        Color.Black.copy(alpha = 0.4f)
+                    } else {
+                        Color.Black
+                    },
+                    modifier = Modifier
+                        .padding(vertical = 8.dp)
+                )
 
-                    Text(
-                        text = stringResource(Res.string.text_instruction),
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier
-                            .align(Alignment.Start)
-                            .fillMaxWidth()
-                            .padding(top = 24.dp, bottom = 8.dp)
-                    )
-                    Text(
-                        text = if (state.meal.instructions.isNullOrBlank()) {
-                            stringResource(Res.string.description_unavailable)
-                        } else {
-                            state.meal.instructions
-                        },
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = if (state.meal.instructions.isNullOrBlank()) {
-                            Color.Black.copy(alpha = 0.4f)
-                        } else {
-                            Color.Black
-                        },
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                    )
-
-                }
             }
-
         }
+
     }
 }
