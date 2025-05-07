@@ -1,6 +1,9 @@
 package org.example.project.meal.di
 
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import org.example.core.data.HttpClientFactory
+import org.example.project.meal.data.database.FavoriteMealDatabase
+import org.example.project.meal.data.database.MealDatabaseFactory
 import org.example.project.meal.data.network.KtorRemoteMealDataSource
 import org.example.project.meal.data.network.RemoteMealDataSource
 import org.example.project.meal.data.repository.DefaultMealRepository
@@ -22,6 +25,13 @@ val sharedModule = module {
     singleOf(::KtorRemoteMealDataSource) bind RemoteMealDataSource::class
     singleOf(::DefaultMealRepository) bind MealRepository::class
 
+    single {
+        get<MealDatabaseFactory>()
+            .create()
+            .setDriver(BundledSQLiteDriver())
+            .build()
+    }
+    single { get<FavoriteMealDatabase>().favoriteMealDao }
     viewModelOf(::MealListViewModel)//will not put bind here as this does not implement abstraction
     viewModelOf(::SelectedMealViewModel)
     viewModelOf(::MealDetailsViewModel)

@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
 )
 abstract class FavoriteMealDatabase : RoomDatabase(){
 
-    abstract val dao: FavoriteMealDao
+    abstract val favoriteMealDao: FavoriteMealDao
 
     companion object {
         const val DATABASE_NAME = "meal_db"
