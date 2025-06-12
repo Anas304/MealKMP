@@ -38,6 +38,7 @@ import org.example.core.presentation.DesertWhite
 import org.example.core.presentation.DimGreen
 import org.example.core.presentation.SandYellow
 import org.example.project.meal.domain.Meal
+import org.example.project.meal.presentation.meal_list.components.MealList
 import org.example.project.meal.presentation.meal_list.components.MovieSearchBar
 import org.example.project.meal.presentation.meal_list.components.NoDataFound
 import org.jetbrains.compose.resources.stringResource
