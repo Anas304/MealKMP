@@ -1,4 +1,4 @@
-package org.example.project.meal.presentation.meal_list.components
+package org.example.project.cat.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,13 +11,13 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.example.project.meal.domain.Meal
+import org.example.project.cat.domain.Cat
 
 @Composable
-fun MealList(
-    meal: List<Meal>,
-    onMealClick: (Meal) -> Unit,
+fun CatList(
     modifier: Modifier = Modifier,
+    cat: List<Cat>,
+    onCatClick: (Cat) -> Unit,
     scrollState: LazyListState = rememberLazyListState()
 ) {
     LazyColumn(
@@ -26,20 +26,19 @@ fun MealList(
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         items(
-            items = meal,
+            items = cat,
             key = { it.id }
-        ) { movie ->
-            MealListItem(
-                meal = movie,
-                onClick = {
-                    onMealClick(movie)
+        ) { cat ->
+            CatListItem(
+                cat = cat,
+                onCatClick = {
+                    onCatClick(cat)
                 },
                 modifier = modifier
                     .widthIn(max = 700.dp)
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             )
-
         }
     }
 }
