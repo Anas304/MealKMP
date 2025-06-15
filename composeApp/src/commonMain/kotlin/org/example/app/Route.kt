@@ -15,3 +15,15 @@ sealed interface Route {
 
 
 }
+
+sealed interface CatRoute {
+    @Serializable
+    data object CatGraph : CatRoute
+
+    @Serializable
+    data object CatList : CatRoute
+
+    @Serializable
+    data class CatDetail(val id: String) : CatRoute
+
+}

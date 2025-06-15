@@ -77,6 +77,12 @@ fun App() {
         }
     }
 }
+/** This function gives you a Koin ViewModel that belongs to the parent navigation graph, not just the current screen.
+This code looks at my parent navigation graph and asks Koin for the ViewModel from there,
+ so multiple screens under that graph share the same ViewModel instance.
+✅ Bonus cheat code If you want to recall this instantly:
+"Who owns the ViewModel? The parent graph!"
+ */
 @Composable
 private inline fun <reified T : ViewModel> NavBackStackEntry.sharedKoinViewModel(
     navController: NavController
@@ -85,7 +91,20 @@ private inline fun <reified T : ViewModel> NavBackStackEntry.sharedKoinViewModel
     val parentEntry = remember(this) {
         navController.getBackStackEntry(navGraph)
     }
+    /**
+     * viewModelStoreOwner -> folder where ViewModel lives.
+     * It tells where the ViewModel should be stored.
+     * Think of it like
+     * “In which folder should I keep this ViewModel alive?
+     * Every NavBackStackEntry (screen or nav graph) is a ViewModelStoreOwner.
+     * That means each screen or navigation graph has its own "storage box" for ViewModels.
+     * in the  return koinViewModel(
+     *         viewModelStoreOwner = parentEntry
+     *     ) you are saying that ->
+     * Hey Koin, don't store the ViewModel in my folder, store it in my parent's folder.
+     * */
     return koinViewModel(
         viewModelStoreOwner = parentEntry
     )
+
 }
