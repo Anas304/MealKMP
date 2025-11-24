@@ -1,5 +1,6 @@
 package org.example.project.meal.data.repository
 
+import kotlinx.coroutines.flow.Flow
 import org.example.core.domain.DataError
 import org.example.core.domain.Result
 import org.example.core.domain.map
@@ -22,6 +23,22 @@ class DefaultMealRepository(
                     transform.toMeal()
                 } ?: emptyList()
             }
+    }
+
+    override fun getFavoriteMeals(): Flow<List<Meal>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun isFavoriteMeal(mealId: String): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun markAsFavorite(meal: Meal) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteFromFavorite(meal: Meal) {
+        TODO("Not yet implemented")
     }
 }
 

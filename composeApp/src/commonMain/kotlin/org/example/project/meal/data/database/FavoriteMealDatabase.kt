@@ -1,5 +1,6 @@
 package org.example.project.meal.data.database
 
+import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
@@ -7,6 +8,7 @@ import androidx.room.RoomDatabase
     entities = [MealEntity::class],
     version = 1
 )
+@ConstructedBy(MealDatabaseConstructor::class)
 abstract class FavoriteMealDatabase : RoomDatabase(){
 
     abstract val favoriteMealDao: FavoriteMealDao
