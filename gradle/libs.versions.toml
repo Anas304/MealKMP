@@ -1,8 +1,5 @@
 [versions]
-agp = "8.5.2"
-android-compileSdk = "34"
-android-minSdk = "24"
-android-targetSdk = "34"
+agp = "8.11.1"
 androidx-activityCompose = "1.9.3"
 androidx-appcompat = "1.7.0"
 androidx-constraintlayout = "2.2.0"
@@ -11,20 +8,23 @@ androidx-espresso-core = "3.6.1"
 androidx-lifecycle = "2.8.4"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
-compose-multiplatform = "1.7.3"
+compose-multiplatform = "1.8.2"
 junit = "4.13.2"
-kotlin = "2.1.20"
+kotlin = "2.2.10"
 kotlinx-coroutines = "1.9.0"
 navigationCompose = "2.8.0-alpha10"
 kotlinSerialization = "1.7.3"
 koin = "4.0.0"
 ktor = "3.0.0"
 coil3 = "3.0.0-rc02"
-ksp = "2.1.20-RC2-1.0.31"
+ksp = "2.2.0-2.0.2"
 sqlite = "2.5.0-alpha11"
 room = "2.7.0-alpha11"
 compottie = "2.0.0-beta02"
 flexible-bottom-sheet = "0.1.5"
+kotlinStdlib = "2.2.10"
+runner = "1.5.2"
+core = "1.5.0"
 
 
 [libraries]
@@ -69,6 +69,9 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
+androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
+androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
 
 
 [plugins]
@@ -80,6 +83,8 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+android-lint = { id = "com.android.lint", version.ref = "agp" }
 
 [bundles]
 ktor = [

@@ -24,3 +24,13 @@ class DefaultMealRepository(
             }
     }
 }
+
+// Get to know what the API send and get in response in LogCat :)
+//            println("Json sent from the app: " + Json.encodeToString(StoresRequestDTO.serializer(), storesRequestDTO))
+//            val response = httpClient.post("api/food/get_stores_nearest_citytoprate") {
+//                contentType(ContentType.Application.Json)
+//                setBody(storesRequestDTO)
+//            }
+//            println("STATUS: ${response.status}")
+//            println("HEADERS: ${response.headers}")
+//            println("Body of the json: ${response.bodyAsText()}")

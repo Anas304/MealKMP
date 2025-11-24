@@ -12,6 +12,10 @@ plugins {
 }
 
 kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-parameters")
+    }
+
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
@@ -32,7 +36,6 @@ kotlin {
     room {
         schemaDirectory("$projectDir/schemas")
     }
-    
     sourceSets {
         
         androidMain.dependencies {
@@ -80,12 +83,12 @@ kotlin {
 
 android {
     namespace = "org.example.project"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "org.example.project"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        minSdk = 28
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
     }

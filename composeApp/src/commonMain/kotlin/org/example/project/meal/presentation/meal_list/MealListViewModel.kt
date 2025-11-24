@@ -5,14 +5,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.core.domain.onError
@@ -25,7 +23,7 @@ class MealListViewModel(
     private val repository: MealRepository
 ) : ViewModel() {
     var searchJob: Job? = null
-    val  cachedMeals = emptyList<Meal>()
+    val cachedMeals = emptyList<Meal>()
     private val _uiState = MutableStateFlow(MealListState())
     val uiState = _uiState
         .onStart {
@@ -33,11 +31,7 @@ class MealListViewModel(
                 observeSearchQuery()
             }
         }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5000L),
-            _uiState.value
-        )
+        .stateInWhileSubscribed(MealListState())
 
     fun onAction(action: MealListAction) {
         when (action) {

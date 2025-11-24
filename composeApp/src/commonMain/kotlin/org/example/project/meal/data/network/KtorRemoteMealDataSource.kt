@@ -3,6 +3,10 @@ package org.example.project.meal.data.network
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 import org.example.core.data.safeCall
 import org.example.core.domain.DataError
 import org.example.core.domain.Result
@@ -21,6 +25,11 @@ class KtorRemoteMealDataSource (
            ) {
                parameter("s",query)
            }
+
+//           httpClient.post(""){
+//               contentType(ContentType.Application.Json)
+//               setBody()// TODO: request body from app to backend server for exmaple MealRequestDto
+//           }
        }
    }
 

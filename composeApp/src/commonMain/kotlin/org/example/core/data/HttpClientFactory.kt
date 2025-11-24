@@ -16,22 +16,22 @@ import kotlinx.serialization.json.Json
 
 object HttpClientFactory {
 
-    fun createHttpClient(engine: HttpClientEngine) : HttpClient{
-        return HttpClient(engine){
+    fun createHttpClient(engine: HttpClientEngine): HttpClient {
+        return HttpClient(engine) {
 
-            install(ContentNegotiation){
+            install(ContentNegotiation) {
                 json(
                     json = Json {
                         ignoreUnknownKeys = true
                     }
                 )
             }
-            install(HttpTimeout){
+            install(HttpTimeout) {
                 socketTimeoutMillis = 20_000L
                 requestTimeoutMillis = 20_000L
             }
-            install(Logging){
-                logger = object : Logger{
+            install(Logging) {
+                logger = object : Logger {
                     override fun log(message: String) {
                         println(message)
                     }

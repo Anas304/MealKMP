@@ -4,11 +4,13 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import kotlinx.coroutines.flow.Flow
+import org.example.project.meal.domain.Meal
+
 @Dao
 interface FavoriteMealDao {
 
     @Upsert
-    suspend fun upsert(): List<MealEntity>
+    suspend fun upsert(meal: Meal)
 
     @Query("SELECT * FROM MealEntity")
     fun getFavoriteMeals(): Flow<List<MealEntity>>//Flow here will give the latest value whenever we add, delete or update the favorite meal list.
