@@ -33,7 +33,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import moviekmp.composeapp.generated.resources.Res
 import moviekmp.composeapp.generated.resources.favorites
 import moviekmp.composeapp.generated.resources.search_results
-import org.example.core.presentation.DarkBlue
 import org.example.core.presentation.DesertGreen
 import org.example.core.presentation.DesertWhite
 import org.example.core.presentation.DimGreen
